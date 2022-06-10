@@ -4,9 +4,9 @@ import { ListGroup, ListGroupItem } from "reactstrap";
 class PollList extends React.Component {
 
     render() {
-        // if (this.props.polls.length === 0) {
-        //     return <p>There is No Poll</p>
-        // }
+        if (this.props.polls.length === 0) {
+            return <p>There is No Poll</p>
+        }
         return (
             <ListGroup>
                 {this.props.polls.map(poll => (

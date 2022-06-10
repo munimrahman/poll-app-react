@@ -41,17 +41,40 @@ class App extends React.Component {
         this.setState({ polls, selectPoll: {} })
     }
     selectPoll = pollId => {
-        const poll = this.state.polls.find(p => p.id === poll.id)
+        const poll = this.state.polls.find(p => p.id === pollId)
         this.setState({ selectPoll: poll })
     }
-    handleSearch = searchTerm => { }
+    handleSearch = searchTerm => {
+        this.setState({ searchTerm })
+    }
+    performSearch = () => {
+        return this.state.polls.filter(poll => poll.title.toLowerCase().includes(this.state.searchTerm.toLowerCase()))
+    }
+    getOpinion = res => {
+        const { polls } = this.state
+        const poll = polls.find(p => p.id === res.pollId)
+        const option = poll.options.find(o => o.id === res.selectedOption)
+
+        poll.totalVote++
+        option.vote++
+        const opinion = {
+            id: shortid.generate(),
+            name: res.name,
+            selectedOption: res.selectedOption
+        }
+
+        poll.opinions.push(opinion)
+
+        this.setState({ polls })
+    }
     render() {
+        const polls = this.performSearch()
         return (
             <Container className="my-5">
                 <Row>
                     <Col md={4}>
                         <SideBar
-                            polls={this.state.polls}
+                            polls={polls}
                             searchTerm={this.state.searchTerm}
                             handleSearch={this.handleSearch}
                             selectPoll={this.selectPoll}
@@ -59,7 +82,12 @@ class App extends React.Component {
                         />
                     </Col>
                     <Col md={8}>
-                        <MainContent />
+                        <MainContent
+                            poll={this.state.selectPoll}
+                            getOpinion={this.getOpinion}
+                            updatePoll={this.updatePoll}
+                            deletePoll={this.deletePoll}
+                        />
                     </Col>
                 </Row>
             </Container>

@@ -29,8 +29,8 @@ const polls = [
     {
         id: '12347',
         title: 'What is The Best Way To Create Andorid App?',
-        description: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid dolore fuga itaque nostrum blanditiis corporis quia neque quibusdam ipsam facilis.',
-        opinions: [
+        description: 'Lorem ipsum dolor sit amet consectetur adipisicing hello. Aliquid dolore fuga itaque nostrum blanditiis corporis quia neque quibusdam ipsam facilis.',
+        options: [
             { id: '131', value: 'Java', vote: 0 },
             { id: '132', value: 'Kotlin', vote: 0 },
             { id: '133', value: 'React Native', vote: 0 },
@@ -38,7 +38,7 @@ const polls = [
         ],
         created: new Date(),
         totalVote: 0,
-        options: []
+        opinions: []
     }
 ]
 
