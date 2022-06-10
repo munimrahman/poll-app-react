@@ -1,5 +1,6 @@
 import React from "react";
 import shortid from "shortid";
+import MyForm from "./Form";
 
 const defaultOptions = [
     { id: shortid.generate(), value: '', vote: 0 },
@@ -10,6 +11,7 @@ class PollForm extends React.Component {
         title: '',
         description: '',
         options: defaultOptions,
+        errors: {}
     }
     handleChange = e => {
         this.setState({
@@ -31,6 +33,7 @@ class PollForm extends React.Component {
         } else {
             alert('You can create max 5 options')
         }
+        this.setState({ options })
     }
     deleteOption = i => {
         const { options } = this.state
@@ -101,6 +104,23 @@ class PollForm extends React.Component {
             errors,
             isValid: Object.keys(errors).length === 0
         }
+    }
+    render() {
+        const { title, description, options, errors } = this.state
+        return (
+            <MyForm
+                title={title}
+                description={description}
+                options={options}
+                errors={errors}
+                buttonValue={this.props.buttonValue || 'Create Poll'}
+                handleChange={this.handleChange}
+                handleOptionChange={this.handleOptionChange}
+                createOption={this.createOption}
+                deleteOption={this.deleteOption}
+                handleSubmit={this.handleSubmit}
+            />
+        );
     }
 }
 
